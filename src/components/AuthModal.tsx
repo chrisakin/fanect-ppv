@@ -70,7 +70,7 @@ export function AuthModal({ isOpen, onClose, mode, onAuth }: AuthModalProps) {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:border-purple-500"
+              className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:border-emerald-500"
               required
             />
           </div>
@@ -81,7 +81,7 @@ export function AuthModal({ isOpen, onClose, mode, onAuth }: AuthModalProps) {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:border-purple-500"
+              className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:border-emerald-500"
               required
             />
           </div>
@@ -93,7 +93,7 @@ export function AuthModal({ isOpen, onClose, mode, onAuth }: AuthModalProps) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2 px-4 rounded-lg bg-purple-600 hover:bg-purple-700 transition font-medium disabled:opacity-50"
+            className="w-full py-2 px-4 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition font-medium disabled:opacity-50"
           >
             {loading ? 'Loading...' : mode === 'signin' ? 'Sign In' : 'Sign Up'}
           </button>
@@ -110,7 +110,7 @@ export function AuthModal({ isOpen, onClose, mode, onAuth }: AuthModalProps) {
 
         <button
           onClick={handleGoogleSignIn}
-          className="mt-4 w-full py-2 px-4 rounded-lg border border-gray-600 hover:border-purple-500 transition flex items-center justify-center space-x-2"
+          className="mt-4 w-full py-2 px-4 rounded-lg border border-gray-600 hover:border-emerald-500 transition flex items-center justify-center space-x-2"
         >
           <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5" />
           <span>Google</span>
