@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Play, User } from 'lucide-react';
+import { Play, User, Menu, X } from 'lucide-react';
 
 interface NavbarProps {
   user: { email: string } | null;
@@ -11,9 +11,26 @@ interface NavbarProps {
 
 export function Navbar({ user, onSignOut, onAuthModalOpen }: NavbarProps) {
   const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const handlePurchaseClick = () => {
+    setIsMenuOpen(false);
     navigate('/events');
+  };
+
+  const handleSignIn = () => {
+    setIsMenuOpen(false);
+    onAuthModalOpen('signin');
+  };
+
+  const handleSignUp = () => {
+    setIsMenuOpen(false);
+    onAuthModalOpen('signup');
+  };
+
+  const handleSignOut = () => {
+    setIsMenuOpen(false);
+    onSignOut();
   };
 
   return (
@@ -25,10 +42,12 @@ export function Navbar({ user, onSignOut, onAuthModalOpen }: NavbarProps) {
             className="flex items-center space-x-2 transition-transform hover:scale-105"
             title="Back to Home"
           >
-            <Play className="w-8 h-8 text-emerald-500" />
-            <span className="text-xl font-bold">FaNect</span>
+            <Play className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-500" />
+            <span className="text-lg sm:text-xl font-bold">FaNect</span>
           </Link>
-          <div className="flex items-center space-x-4">
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-4">
             <button 
               onClick={handlePurchaseClick}
               className="px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-700 transition"
@@ -74,8 +93,69 @@ export function Navbar({ user, onSignOut, onAuthModalOpen }: NavbarProps) {
               </div>
             )}
           </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700"
+          >
+            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden bg-gray-800 border-t border-gray-700">
+          <div className="px-4 pt-2 pb-3 space-y-1">
+            <button
+              onClick={handlePurchaseClick}
+              className="w-full text-left px-4 py-2 text-white hover:bg-gray-700 rounded-lg"
+            >
+              Purchase Ticket
+            </button>
+            <Link
+              to="/events"
+              onClick={() => setIsMenuOpen(false)}
+              className="block px-4 py-2 text-white hover:bg-gray-700 rounded-lg"
+            >
+              Browse Events
+            </Link>
+            {user ? (
+              <>
+                <Link
+                  to="/dashboard"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block px-4 py-2 text-white hover:bg-gray-700 rounded-lg"
+                >
+                  Dashboard
+                </Link>
+                <button
+                  onClick={handleSignOut}
+                  className="w-full text-left px-4 py-2 text-white hover:bg-gray-700 rounded-lg"
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={handleSignIn}
+                  className="w-full text-left px-4 py-2 text-white hover:bg-gray-700 rounded-lg"
+                >
+                  Sign In
+                </button>
+                <button
+                  onClick={handleSignUp}
+                  className="w-full text-left px-4 py-2 text-white hover:bg-gray-700 rounded-lg"
+                >
+                  Sign Up
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

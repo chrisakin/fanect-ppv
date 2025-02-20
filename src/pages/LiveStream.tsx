@@ -28,15 +28,15 @@ export function LiveStream() {
         <div className="max-w-7xl mx-auto">
           <Link to="/events" className="inline-flex items-center text-gray-400 hover:text-white">
             <ArrowLeft className="w-5 h-5 mr-2" />
-            Back to Events
+            <span className="hidden sm:inline">Back to Events</span>
           </Link>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="flex gap-4">
+        <div className="flex flex-col lg:flex-row gap-4">
           {/* Main Content */}
-          <div className={`flex-1 ${showChat ? 'w-3/4' : 'w-full'}`}>
+          <div className={`flex-1 ${showChat ? 'lg:w-3/4' : 'w-full'}`}>
             {/* Video Player */}
             <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
               <div className="absolute inset-0 flex items-center justify-center">
@@ -52,19 +52,19 @@ export function LiveStream() {
                   <div className="flex items-center justify-between text-white">
                     <div className="flex items-center space-x-4">
                       <button onClick={toggleMute} className="hover:text-emerald-500 transition">
-                        <Volume2 className="w-6 h-6" />
+                        <Volume2 className="w-5 h-5 sm:w-6 sm:h-6" />
                       </button>
                       <div className="flex items-center space-x-2">
-                        <Users className="w-5 h-5" />
-                        <span>{viewers.toLocaleString()}</span>
+                        <Users className="w-4 h-4 sm:w-5 sm:h-5" />
+                        <span className="text-sm sm:text-base">{viewers.toLocaleString()}</span>
                       </div>
                     </div>
                     <div className="flex items-center space-x-4">
                       <button className="hover:text-emerald-500 transition">
-                        <Settings className="w-6 h-6" />
+                        <Settings className="w-5 h-5 sm:w-6 sm:h-6" />
                       </button>
                       <button onClick={toggleFullscreen} className="hover:text-emerald-500 transition">
-                        <Maximize2 className="w-6 h-6" />
+                        <Maximize2 className="w-5 h-5 sm:w-6 sm:h-6" />
                       </button>
                     </div>
                   </div>
@@ -74,10 +74,10 @@ export function LiveStream() {
 
             {/* Stream Info */}
             <div className="mt-6">
-              <div className="flex items-start justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                 <div>
-                  <h1 className="text-2xl font-bold text-white mb-2">Live Music Festival 2024</h1>
-                  <p className="text-gray-400">
+                  <h1 className="text-xl sm:text-2xl font-bold text-white mb-2">Live Music Festival 2024</h1>
+                  <p className="text-sm sm:text-base text-gray-400">
                     Experience the energy and excitement of our annual music festival, streaming live from multiple stages.
                   </p>
                 </div>
@@ -87,24 +87,35 @@ export function LiveStream() {
                     className="flex items-center space-x-2 px-4 py-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
                   >
                     <Heart className="w-5 h-5 text-red-500" />
-                    <span className="text-white">{likes.toLocaleString()}</span>
+                    <span className="text-white text-sm">{likes.toLocaleString()}</span>
                   </button>
                   <button className="flex items-center space-x-2 px-4 py-2 rounded-full bg-gray-800 hover:bg-gray-700 transition">
                     <Share2 className="w-5 h-5 text-white" />
-                    <span className="text-white">Share</span>
+                    <span className="text-white text-sm hidden sm:inline">Share</span>
                   </button>
                 </div>
               </div>
+            </div>
+
+            {/* Mobile Chat Toggle */}
+            <div className="lg:hidden mt-4">
+              <button
+                onClick={toggleChat}
+                className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-gray-800 rounded-lg hover:bg-gray-700 transition"
+              >
+                <MessageCircle className="w-5 h-5" />
+                <span>{showChat ? 'Hide Chat' : 'Show Chat'}</span>
+              </button>
             </div>
           </div>
 
           {/* Chat Section */}
           {showChat && (
-            <div className="w-1/4 min-w-[300px] bg-gray-800 rounded-lg p-4 h-[calc(100vh-200px)] flex flex-col">
+            <div className="lg:w-1/4 min-w-0 lg:min-w-[300px] bg-gray-800 rounded-lg p-4 h-[400px] lg:h-[calc(100vh-200px)] flex flex-col">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-white">Live Chat</h3>
-                <button onClick={toggleChat} className="text-gray-400 hover:text-white">
-                  <MessageCircle className="w-5 h-5" />
+                <button onClick={toggleChat} className="text-gray-400 hover:text-white lg:hidden">
+                  <X className="w-5 h-5" />
                 </button>
               </div>
 
