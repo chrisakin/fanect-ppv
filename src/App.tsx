@@ -7,6 +7,7 @@ import { TicketModal } from './components/Modals/TicketModal';
 import { Home } from './pages/Home';
 import { Events } from './pages/Events';
 import { LiveStream } from './pages/LiveStream';
+import { Dashboard } from './pages/Dashboard';
 
 function App() {
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
@@ -29,6 +30,7 @@ function App() {
 
   const handleSignOut = () => {
     setUser(null);
+    navigate('/');
   };
 
   const handlePurchaseClick = () => {
@@ -76,6 +78,7 @@ function App() {
             />
           } />
           <Route path="/live/:id" element={<LiveStream />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </Layout>
 
@@ -84,7 +87,10 @@ function App() {
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
         mode={authMode}
-        onAuth={(email: string) => setUser({ email })}
+        onAuth={(email: string) => {
+          setUser({ email });
+          navigate('/dashboard');
+        }}
       />
 
       {showEmailInput && (

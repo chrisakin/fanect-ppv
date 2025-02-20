@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Calendar, Play, Clock, Ticket } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 
 interface EventsProps {
   onPurchaseClick?: () => void;
@@ -9,14 +8,6 @@ interface EventsProps {
 
 export function Events({ onPurchaseClick, onWatchEvent }: EventsProps) {
   const [activeSection, setActiveSection] = useState('upcoming');
-  const navigate = useNavigate();
-
-  const handleWatchNowClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (onWatchEvent) {
-      onWatchEvent();
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white">
@@ -160,7 +151,7 @@ export function Events({ onPurchaseClick, onWatchEvent }: EventsProps) {
                       </div>
                     </div>
                     <button 
-                      onClick={handleWatchNowClick}
+                      onClick={onWatchEvent}
                       className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-red-600 rounded-full hover:bg-red-700 transition"
                     >
                       <Play className="w-4 h-4" />
@@ -194,7 +185,7 @@ export function Events({ onPurchaseClick, onWatchEvent }: EventsProps) {
                       A groundbreaking discussion on artificial intelligence and its impact on society.
                     </p>
                     <button 
-                      onClick={handleWatchNowClick}
+                      onClick={onWatchEvent}
                       className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-gray-700 rounded-full hover:bg-gray-600 transition"
                     >
                       <Play className="w-4 h-4" />
@@ -224,7 +215,7 @@ export function Events({ onPurchaseClick, onWatchEvent }: EventsProps) {
                       Watch innovative startups pitch their ideas to top investors and industry experts.
                     </p>
                     <button 
-                      onClick={handleWatchNowClick}
+                      onClick={onWatchEvent}
                       className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-gray-700 rounded-full hover:bg-gray-600 transition"
                     >
                       <Play className="w-4 h-4" />

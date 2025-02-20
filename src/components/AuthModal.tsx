@@ -11,6 +11,8 @@ interface AuthModalProps {
 export function AuthModal({ isOpen, onClose, mode, onAuth }: AuthModalProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -24,10 +26,22 @@ export function AuthModal({ isOpen, onClose, mode, onAuth }: AuthModalProps) {
     // Simulate authentication delay
     await new Promise(resolve => setTimeout(resolve, 1000));
 
+    // Validate fields for signup
+    if (mode === 'signup' && (!firstName.trim() || !lastName.trim())) {
+      setError('Please fill in all fields');
+      setLoading(false);
+      return;
+    }
+
     // TODO: Replace with actual authentication logic
     if (email && password) {
       onAuth(email);
       onClose();
+      // Reset form
+      setEmail('');
+      setPassword('');
+      setFirstName('');
+      setLastName('');
     } else {
       setError('Please fill in all fields');
     }
@@ -64,6 +78,31 @@ export function AuthModal({ isOpen, onClose, mode, onAuth }: AuthModalProps) {
         </h2>
         
         <form onSubmit={handleSubmit} className="space-y-4">
+          {mode === 'signup' && (
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-1 text-white">First Name</label>
+                <input
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:border-emerald-500"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1 text-white">Last Name</label>
+                <input
+                  type="text"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:border-emerald-500"
+                  required
+                />
+              </div>
+            </div>
+          )}
+          
           <div>
             <label className="block text-sm font-medium mb-1 text-white">Email</label>
             <input

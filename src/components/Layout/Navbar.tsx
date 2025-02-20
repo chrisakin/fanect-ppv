@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Play } from 'lucide-react';
+import { Play, User } from 'lucide-react';
 
 interface NavbarProps {
   user: { email: string } | null;
@@ -43,7 +43,13 @@ export function Navbar({ user, onSignOut, onAuthModalOpen }: NavbarProps) {
             </Link>
             {user ? (
               <div className="flex items-center space-x-3 ml-4">
-                <span className="text-sm text-gray-300">{user.email}</span>
+                <Link 
+                  to="/dashboard"
+                  className="flex items-center space-x-2 text-gray-300 hover:text-white transition"
+                >
+                  <User className="w-5 h-5" />
+                  <span className="text-sm">{user.email}</span>
+                </Link>
                 <button
                   onClick={onSignOut}
                   className="text-sm text-gray-400 hover:text-white transition"
