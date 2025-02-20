@@ -14,7 +14,7 @@ interface TicketModalProps {
 export function TicketModal({ formData, onInputChange, onSubmit, onClose }: TicketModalProps) {
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="bg-gray-800 rounded-lg p-8 w-full max-w-md relative">
+      <div className="bg-gray-800 rounded-lg p-8 w-full max-w-md relative text-white">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-white"
@@ -51,14 +51,14 @@ export function TicketModal({ formData, onInputChange, onSubmit, onClose }: Tick
           <div className="flex space-x-3">
             <button
               type="submit"
-              className="flex-1 py-2 px-4 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition font-medium"
+              className="flex-1 py-2 px-4 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition font-medium text-white"
             >
               Watch Stream
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="py-2 px-4 rounded-lg border border-gray-600 hover:border-emerald-500 transition"
+              className="py-2 px-4 rounded-lg border border-gray-600 hover:border-emerald-500 transition text-white"
             >
               Cancel
             </button>

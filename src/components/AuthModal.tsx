@@ -51,7 +51,7 @@ export function AuthModal({ isOpen, onClose, mode, onAuth }: AuthModalProps) {
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="bg-gray-800 rounded-lg p-8 w-full max-w-md relative">
+      <div className="bg-gray-800 rounded-lg p-8 w-full max-w-md relative text-white">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-white"
@@ -59,13 +59,13 @@ export function AuthModal({ isOpen, onClose, mode, onAuth }: AuthModalProps) {
           <X className="w-6 h-6" />
         </button>
         
-        <h2 className="text-2xl font-bold mb-6">
+        <h2 className="text-2xl font-bold mb-6 text-white">
           {mode === 'signin' ? 'Sign In' : 'Sign Up'}
         </h2>
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Email</label>
+            <label className="block text-sm font-medium mb-1 text-white">Email</label>
             <input
               type="email"
               value={email}
@@ -76,7 +76,7 @@ export function AuthModal({ isOpen, onClose, mode, onAuth }: AuthModalProps) {
           </div>
           
           <div>
-            <label className="block text-sm font-medium mb-1">Password</label>
+            <label className="block text-sm font-medium mb-1 text-white">Password</label>
             <input
               type="password"
               value={password}
@@ -93,7 +93,7 @@ export function AuthModal({ isOpen, onClose, mode, onAuth }: AuthModalProps) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2 px-4 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition font-medium disabled:opacity-50"
+            className="w-full py-2 px-4 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition font-medium text-white disabled:opacity-50"
           >
             {loading ? 'Loading...' : mode === 'signin' ? 'Sign In' : 'Sign Up'}
           </button>
@@ -110,7 +110,7 @@ export function AuthModal({ isOpen, onClose, mode, onAuth }: AuthModalProps) {
 
         <button
           onClick={handleGoogleSignIn}
-          className="mt-4 w-full py-2 px-4 rounded-lg border border-gray-600 hover:border-emerald-500 transition flex items-center justify-center space-x-2"
+          className="mt-4 w-full py-2 px-4 rounded-lg border border-gray-600 hover:border-emerald-500 transition flex items-center justify-center space-x-2 text-white"
         >
           <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5" />
           <span>Google</span>

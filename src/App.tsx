@@ -32,7 +32,7 @@ function App() {
   };
 
   const handlePurchaseClick = () => {
-    setShowEmailInput(true);
+    navigate('/events');
   };
 
   const handleWatchEvent = () => {
@@ -71,7 +71,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/events" element={
             <Events 
-              onPurchaseClick={handlePurchaseClick}
+              onPurchaseClick={() => setShowEmailInput(true)}
               onWatchEvent={handleWatchEvent}
             />
           } />
