@@ -4,10 +4,9 @@ import { Layout } from './components/Layout/Layout';
 import { AuthModal } from './components/AuthModal';
 import { PaymentModal } from './components/Modals/PaymentModal';
 import { TicketModal } from './components/Modals/TicketModal';
-import { Home } from './pages/Home';
+import { ScrollToTop } from './components/ScrollToTop';
+import { routes } from './routes';
 import { Events } from './pages/Events';
-import { LiveStream } from './pages/LiveStream';
-import { Dashboard } from './pages/Dashboard';
 
 function App() {
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
@@ -60,6 +59,7 @@ function App() {
 
   return (
     <>
+      <ScrollToTop />
       <Layout
         user={user}
         onSignOut={handleSignOut}
@@ -70,15 +70,22 @@ function App() {
         }}
       >
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/events" element={
-            <Events 
-              onPurchaseClick={() => setShowEmailInput(true)}
-              onWatchEvent={handleWatchEvent}
+          {routes.map((route) => (
+            <Route
+              key={route.path}
+              path={route.path}
+              element={
+                route.path === '/events' ? (
+                  <Events
+                    onPurchaseClick={() => setShowEmailInput(true)}
+                    onWatchEvent={handleWatchEvent}
+                  />
+                ) : (
+                  route.element
+                )
+              }
             />
-          } />
-          <Route path="/live/:id" element={<LiveStream />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          ))}
         </Routes>
       </Layout>
 

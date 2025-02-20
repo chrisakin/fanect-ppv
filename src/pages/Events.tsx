@@ -9,6 +9,12 @@ interface EventsProps {
 export function Events({ onPurchaseClick, onWatchEvent }: EventsProps) {
   const [activeSection, setActiveSection] = useState('upcoming');
 
+  const handleWatchClick = () => {
+    if (onWatchEvent) {
+      onWatchEvent();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white">
       {/* Header */}
@@ -151,7 +157,7 @@ export function Events({ onPurchaseClick, onWatchEvent }: EventsProps) {
                       </div>
                     </div>
                     <button 
-                      onClick={onWatchEvent}
+                      onClick={handleWatchClick}
                       className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-red-600 rounded-full hover:bg-red-700 transition"
                     >
                       <Play className="w-4 h-4" />
@@ -185,7 +191,7 @@ export function Events({ onPurchaseClick, onWatchEvent }: EventsProps) {
                       A groundbreaking discussion on artificial intelligence and its impact on society.
                     </p>
                     <button 
-                      onClick={onWatchEvent}
+                      onClick={handleWatchClick}
                       className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-gray-700 rounded-full hover:bg-gray-600 transition"
                     >
                       <Play className="w-4 h-4" />
@@ -215,7 +221,7 @@ export function Events({ onPurchaseClick, onWatchEvent }: EventsProps) {
                       Watch innovative startups pitch their ideas to top investors and industry experts.
                     </p>
                     <button 
-                      onClick={onWatchEvent}
+                      onClick={handleWatchClick}
                       className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-gray-700 rounded-full hover:bg-gray-600 transition"
                     >
                       <Play className="w-4 h-4" />
