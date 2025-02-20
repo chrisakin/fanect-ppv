@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import { Calendar, Play, Clock, Ticket } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-export function Events() {
+interface EventsProps {
+  onPurchaseClick?: () => void;
+  onWatchEvent?: () => void;
+}
+
+export function Events({ onPurchaseClick, onWatchEvent }: EventsProps) {
   const [activeSection, setActiveSection] = useState('upcoming');
-
-  const handlePurchaseClick = () => {
-    // TODO: Implement purchase logic
-  };
+  const navigate = useNavigate();
 
   const handleWatchNowClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    // TODO: Implement watch logic
+    if (onWatchEvent) {
+      onWatchEvent();
+    }
   };
 
   return (
@@ -85,7 +90,7 @@ export function Events() {
                       Join industry leaders for an exclusive live event discussing the future of technology.
                     </p>
                     <button 
-                      onClick={handlePurchaseClick}
+                      onClick={onPurchaseClick}
                       className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-emerald-600 rounded-full hover:bg-emerald-700 transition"
                     >
                       <Ticket className="w-4 h-4" />
@@ -115,7 +120,7 @@ export function Events() {
                       Experience a virtual gallery showcasing the most innovative digital artists of our time.
                     </p>
                     <button 
-                      onClick={handlePurchaseClick}
+                      onClick={onPurchaseClick}
                       className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-emerald-600 rounded-full hover:bg-emerald-700 transition"
                     >
                       <Ticket className="w-4 h-4" />

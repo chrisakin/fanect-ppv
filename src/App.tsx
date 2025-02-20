@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Layout } from './components/Layout/Layout';
 import { AuthModal } from './components/AuthModal';
@@ -21,12 +21,22 @@ function App() {
   });
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const handlePurchaseModal = () => setShowEmailInput(true);
+    window.addEventListener('openPurchaseModal', handlePurchaseModal);
+    return () => window.removeEventListener('openPurchaseModal', handlePurchaseModal);
+  }, []);
+
   const handleSignOut = () => {
     setUser(null);
   };
 
   const handlePurchaseClick = () => {
     setShowEmailInput(true);
+  };
+
+  const handleWatchEvent = () => {
+    setShowTicketModal(true);
   };
 
   const handleTicketSubmit = (e: React.FormEvent) => {
@@ -59,7 +69,12 @@ function App() {
       >
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/events" element={<Events />} />
+          <Route path="/events" element={
+            <Events 
+              onPurchaseClick={handlePurchaseClick}
+              onWatchEvent={handleWatchEvent}
+            />
+          } />
           <Route path="/live/:id" element={<LiveStream />} />
         </Routes>
       </Layout>

@@ -1,26 +1,77 @@
 import React from 'react';
-import { Play } from 'lucide-react';
+import { Play, Instagram, Facebook, Twitter, Smartphone } from 'lucide-react';
 
 export function Footer() {
   return (
-    <footer className="bg-black/30 mt-20 py-8">
+    <footer className="bg-black/30 mt-20 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="flex items-center space-x-2 mb-4 md:mb-0">
-            <Play className="w-6 h-6 text-emerald-500" />
-            <span className="font-bold">FaNect</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Brand and Description */}
+          <div>
+            <div className="flex items-center space-x-2 mb-4">
+              <Play className="w-6 h-6 text-emerald-500" />
+              <span className="font-bold">FaNect</span>
+            </div>
+            <p className="text-gray-400 text-sm">
+              Connect with your favorite creators and experience exclusive live events.
+            </p>
           </div>
-          <div className="flex space-x-6">
-            <a href="#" className="text-gray-400 hover:text-white transition">
-              Terms
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white transition">
-              Privacy
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white transition">
-              Support
-            </a>
+
+          {/* Social Media Links */}
+          <div>
+            <h3 className="font-semibold mb-4">Follow Our Pages</h3>
+            <div className="space-y-3">
+              <a href="#" className="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                <Instagram className="w-5 h-5" />
+                <span>Instagram</span>
+              </a>
+              <a href="#" className="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                <Facebook className="w-5 h-5" />
+                <span>Facebook</span>
+              </a>
+              <a href="#" className="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                <Twitter className="w-5 h-5" />
+                <span>Twitter</span>
+              </a>
+            </div>
           </div>
+
+          {/* Mobile Apps */}
+          <div>
+            <h3 className="font-semibold mb-4">Get Premium Content</h3>
+            <p className="text-gray-400 text-sm mb-4">
+              Download our app to access exclusive content from your favorite celebrities.
+            </p>
+            <div className="space-y-3">
+              <a href="#" className="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" 
+                     alt="Download on App Store" 
+                     className="h-8" />
+              </a>
+              <a href="#" className="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" 
+                     alt="Get it on Google Play" 
+                     className="h-8" />
+              </a>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h3 className="font-semibold mb-4">Quick Links</h3>
+            <div className="space-y-2">
+              <a href="#" className="block text-gray-400 hover:text-white transition">Terms</a>
+              <a href="#" className="block text-gray-400 hover:text-white transition">Privacy</a>
+              <a href="#" className="block text-gray-400 hover:text-white transition">Support</a>
+              <a href="#" className="block text-gray-400 hover:text-white transition">Contact</a>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 pt-8 border-t border-gray-700">
+          <p className="text-center text-gray-400 text-sm">
+            © {new Date().getFullYear()} FaNect. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
