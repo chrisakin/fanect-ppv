@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
-import { Play, Ticket, Calendar, Lock, Mail, CreditCard, X } from 'lucide-react';
+import { Play, Ticket, Calendar, Lock, Mail, CreditCard, X, Clock } from 'lucide-react';
 import { PaystackButton } from 'react-paystack';
 import { AuthModal } from './components/AuthModal';
 import { LiveStream } from './pages/LiveStream';
@@ -13,8 +13,10 @@ function App() {
   const [paymentEmail, setPaymentEmail] = useState('');
   const [showEmailInput, setShowEmailInput] = useState(false);
   const [showTicketModal, setShowTicketModal] = useState(false);
-  const [ticketEmail, setTicketEmail] = useState('');
-  const [ticketCode, setTicketCode] = useState('');
+  const [formData, setFormData] = useState({
+    ticketEmail: '',
+    ticketCode: ''
+  });
   const navigate = useNavigate();
 
   const handleSignOut = () => {
@@ -32,14 +34,19 @@ function App() {
 
   const handleTicketSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically validate the ticket code against your backend
-    // For now, we'll just check if both fields are filled
-    if (ticketEmail && ticketCode) {
+    if (formData.ticketEmail && formData.ticketCode) {
       setShowTicketModal(false);
-      setTicketEmail('');
-      setTicketCode('');
+      setFormData({ ticketEmail: '', ticketCode: '' });
       navigate('/live/dQw4w9WgXcQ');
     }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
   const componentProps = {
@@ -168,25 +175,27 @@ function App() {
             <h2 className="text-2xl font-bold mb-6">Enter Ticket Details</h2>
             <form onSubmit={handleTicketSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-1">Email Address</label>
+                <label htmlFor="ticketEmail" className="block text-sm font-medium mb-1">Email Address</label>
                 <input
+                  id="ticketEmail"
+                  name="ticketEmail"
                   type="email"
-                  value={ticketEmail}
-                  onChange={(e) => setTicketEmail(e.target.value)}
+                  value={formData.ticketEmail}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:border-emerald-500"
                   placeholder="your@email.com"
-                  required
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Ticket Code</label>
+                <label htmlFor="ticketCode" className="block text-sm font-medium mb-1">Ticket Code</label>
                 <input
+                  id="ticketCode"
+                  name="ticketCode"
                   type="text"
-                  value={ticketCode}
-                  onChange={(e) => setTicketCode(e.target.value)}
+                  value={formData.ticketCode}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:border-emerald-500"
                   placeholder="Enter your ticket code"
-                  required
                 />
               </div>
               <div className="flex space-x-3">
@@ -200,8 +209,7 @@ function App() {
                   type="button"
                   onClick={() => {
                     setShowTicketModal(false);
-                    setTicketEmail('');
-                    setTicketCode('');
+                    setFormData({ ticketEmail: '', ticketCode: '' });
                   }}
                   className="py-2 px-4 rounded-lg border border-gray-600 hover:border-emerald-500 transition"
                 >
@@ -248,6 +256,16 @@ function App() {
             >
               Live Now
             </button>
+            <button
+              onClick={() => setActiveSection('past')}
+              className={`px-4 py-2 rounded-full ${
+                activeSection === 'past'
+                  ? 'bg-emerald-600'
+                  : 'bg-gray-800 hover:bg-gray-700'
+              } transition`}
+            >
+              Past Events
+            </button>
           </div>
 
           {/* Event Cards */}
@@ -280,7 +298,7 @@ function App() {
                   </div>
                 </div>
               </div>
-            ) : (
+            ) : activeSection === 'live' ? (
               <div className="bg-gray-800 rounded-lg overflow-hidden hover:ring-2 hover:ring-emerald-500 transition">
                 <img
                   src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea"
@@ -313,6 +331,92 @@ function App() {
                   </div>
                 </div>
               </div>
+            ) : (
+              <>
+                <div className="bg-gray-800 rounded-lg overflow-hidden hover:ring-2 hover:ring-emerald-500 transition">
+                  <img
+                    src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec"
+                    alt="Past Event"
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-6">
+                    <div className="flex items-center space-x-2 text-gray-400 mb-2">
+                      <Clock className="w-4 h-4" />
+                      <span>February 28, 2024</span>
+                    </div>
+                    <h3 className="text-xl font-bold mb-2">AI Summit 2024</h3>
+                    <p className="text-gray-400 mb-4">
+                      A groundbreaking discussion on artificial intelligence and its impact on society.
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-400">4.8k views</span>
+                      <button 
+                        onClick={handleWatchNowClick}
+                        className="flex items-center space-x-2 px-4 py-2 bg-gray-700 rounded-full hover:bg-gray-600 transition"
+                      >
+                        <Play className="w-4 h-4" />
+                        <span>Watch Recording</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-gray-800 rounded-lg overflow-hidden hover:ring-2 hover:ring-emerald-500 transition">
+                  <img
+                    src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30"
+                    alt="Past Event"
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-6">
+                    <div className="flex items-center space-x-2 text-gray-400 mb-2">
+                      <Clock className="w-4 h-4" />
+                      <span>February 15, 2024</span>
+                    </div>
+                    <h3 className="text-xl font-bold mb-2">Startup Pitch Night</h3>
+                    <p className="text-gray-400 mb-4">
+                      Watch innovative startups pitch their ideas to top investors and industry experts.
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-400">3.2k views</span>
+                      <button 
+                        onClick={handleWatchNowClick}
+                        className="flex items-center space-x-2 px-4 py-2 bg-gray-700 rounded-full hover:bg-gray-600 transition"
+                      >
+                        <Play className="w-4 h-4" />
+                        <span>Watch Recording</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-gray-800 rounded-lg overflow-hidden hover:ring-2 hover:ring-emerald-500 transition">
+                  <img
+                    src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678"
+                    alt="Past Event"
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-6">
+                    <div className="flex items-center space-x-2 text-gray-400 mb-2">
+                      <Clock className="w-4 h-4" />
+                      <span>February 1, 2024</span>
+                    </div>
+                    <h3 className="text-xl font-bold mb-2">Web3 Conference</h3>
+                    <p className="text-gray-400 mb-4">
+                      Explore the future of the web with leading experts in blockchain and decentralized technologies.
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-400">5.1k views</span>
+                      <button 
+                        onClick={handleWatchNowClick}
+                        className="flex items-center space-x-2 px-4 py-2 bg-gray-700 rounded-full hover:bg-gray-600 transition"
+                      >
+                        <Play className="w-4 h-4" />
+                        <span>Watch Recording</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </>
             )}
           </div>
         </div>
